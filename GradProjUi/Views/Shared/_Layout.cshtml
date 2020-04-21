@@ -3,32 +3,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @*<link rel="stylesheet" href="\Content\StyleSheet.css" type="text/css" />*@
     <title>@ViewBag.Title - SAST</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-        @*<div class="flex">
-            <div class="sidebar">
-                <div class="sidebar-header">
-                    @*<h1 class="sidebar-header-title">
-                        Title
-                    </h1>
-                    <a class="sidebar-header-button">
-                        New Upload
-                    </a>
-
-                    <a class="sidebar-header-button">
-                        Results
-                    </a>
-
-                    <a class="sidebar-header-button">
-                        Edit Information
-                    </a>
-                </div>
-
-        </div>*@
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -42,7 +21,8 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("New Upload", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Results", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Results", "Results", "Home")</li>
+                        <li>@Html.ActionLink("View Users", "ViewUsers", "Home")</li>
                         <li>@Html.ActionLink("Edit Information", "EditInfo", "Home")</li>
                     </ul>
                 </div>

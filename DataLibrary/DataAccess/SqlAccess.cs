@@ -25,13 +25,12 @@ namespace DataLibrary.DataAccess
             }
         }
 
-        public static int SaveData<T>(string sql, T data)
+        public static int UseData<T>(string sql, T data)
         {
             using (IDbConnection connection = new SqlConnection(GetConnecitonString()))
             {
                 return connection.Execute(sql, data);
             }
         }
-
     }
 }

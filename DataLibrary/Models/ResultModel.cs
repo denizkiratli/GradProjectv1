@@ -9,7 +9,8 @@ namespace DataLibrary.Models
     public class ResultModel
     {
         public int ResultId { get; set; }
-        public double AssignmentScore { get; set; }
+        public string AssignmentName { get; set; }
+        public double Score { get; set; }
         public int TotalAssignmentNumber { get; set; }
     }
 }

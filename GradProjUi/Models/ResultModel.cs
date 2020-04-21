@@ -7,10 +7,12 @@ namespace GradProjUi.Models
 {
     public class ResultModel
     {
-        public string Assignment { get; set; }
+        public int ResultId { get; set; }
 
-        public int Attendance { get; set; }
-        
-        public int Score { get; set; }
+        public string AssignmentName { get; set; }
+
+        public double Score { get; set; }
+
+        public int NumberofAttendance { get; set; }
     }
 }

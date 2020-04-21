@@ -1,7 +1,9 @@
 ﻿CREATE TABLE [dbo].[UserData]
 (
-	[UserId] INT NOT NULL IDENTITY (1,1) PRIMARY KEY,
-	[UserName] [NVARCHAR](50) NOT NULL,
+	[UserId] INT NOT NULL PRIMARY KEY,
+	[UserFirstName] [NVARCHAR](50) NOT NULL,
+	[UserLastName] [NVARCHAR](50) NOT NULL,
 	[UserMail] [NVARCHAR](50) NOT NULL,
-	[UserTitle] [NVARCHAR](15) NOT NULL
+	[UserPassword] [NVARCHAR](MAX) NOT NULL,
+	[UserRole] [NVARCHAR](10)
 )

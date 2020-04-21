@@ -46,15 +46,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\SqlAccess.cs" />
+    <Compile Include="Logic\DBBridge.cs" />
     <Compile Include="Models\AssignmentModel.cs" />
-    <Compile Include="Models\InstructorModel.cs" />
     <Compile Include="Models\ResultModel.cs" />
-    <Compile Include="Models\StudentModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
