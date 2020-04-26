@@ -9,10 +9,18 @@ using System.Web.Mvc;
 
 namespace GradProjUi.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
+            return View();
+        }
+
+        public ActionResult Upload()
+        {
+            ViewBag.Message = "Upload your files.";
+
             return View();
         }
 

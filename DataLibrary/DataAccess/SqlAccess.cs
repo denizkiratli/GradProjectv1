@@ -29,7 +29,15 @@ namespace DataLibrary.DataAccess
         {
             using (IDbConnection connection = new SqlConnection(GetConnecitonString()))
             {
-                return connection.Execute(sql, data);
+                    return connection.Execute(sql, data);
+            }
+        }
+
+        public static List<T> SearchData<T>(string sql, T data)
+        {
+            using (IDbConnection connection = new SqlConnection(GetConnecitonString()))
+            {
+                return connection.Query<T>(sql, data).ToList();
             }
         }
     }

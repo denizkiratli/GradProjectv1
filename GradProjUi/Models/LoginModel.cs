@@ -15,5 +15,8 @@ namespace GradProjUi.Models
         [DataType(DataType.Password)]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please type your password.")]
         public string Password { get; set; }
+
+        [Display(Name = "Remember Me")]
+        public bool RememberMe { get; set; }
     }
 }

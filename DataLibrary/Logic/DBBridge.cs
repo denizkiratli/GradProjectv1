@@ -5,6 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using Dapper;
 
 namespace DataLibrary.Logic
 {
@@ -22,7 +26,7 @@ namespace DataLibrary.Logic
                 UserMail = userMail,
                 UserPassword = hashedUserPassword
             };
-
+            
             string sql = @"INSERT INTO dbo.UserData (UserId, UserFirstName, UserLastName, UserMail, UserPassword) VALUES (@UserId, @UserFirstName, @UserLastName, @UserMail, @UserPassword);";
 
             return SqlAccess.UseData(sql, data);
@@ -35,7 +39,7 @@ namespace DataLibrary.Logic
             return SqlAccess.LoadData<UserModel>(sql);
         }
 
-        public static int SearchUser(string userMail, string userPassword)
+        public static List<UserModel> LoginUser(string userMail, string userPassword)
         {
             string hashedUserPassword = Convert.ToBase64String(System.Security.Cryptography.SHA1.Create().ComputeHash(Encoding.UTF8.GetBytes(userPassword)));
 
@@ -47,10 +51,22 @@ namespace DataLibrary.Logic
             
             string sql = @"SELECT * FROM dbo.UserData WHERE UserMail = @userMail AND UserPassword = @UserPassword;";
 
-            return SqlAccess.UseData(sql, data);
+            return SqlAccess.SearchData<UserModel>(sql, data);
         }
 
-        public static List<ResultModel> LoadResults()
+        public static List<UserModel> SearchUser(string userMail)
+        {
+            UserModel data = new UserModel
+            {
+                UserMail = userMail,
+            };
+
+            string sql = @"SELECT * FROM dbo.UserData WHERE UserMail = @userMail;";
+
+            return SqlAccess.SearchData<UserModel>(sql, data);
+        }
+
+            public static List<ResultModel> LoadResults()
         {
             string sql = @"SELECT res.ResId, assign.AsName, res.Score, res.TotAsNum FROM dbo.ResultData res INNER JOIN dbo.AssignmentData assign ON res.AsId = assign.AsId;";
 

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using System.Web.Mvc;
 
 namespace GradProjUi.Controllers
@@ -24,14 +25,35 @@ namespace GradProjUi.Controllers
         {
             if(ModelState.IsValid)
             {
-                //DBBridge.SearchUser(model.EMail, model.Password);
-                
-                if(DBBridge.SearchUser(model.EMail, model.Password) != 0)
+                var data = DBBridge.LoginUser(model.EMail, model.Password);
+                if (data.Count != 0)
                 {
+                    int timeout = model.RememberMe ? 43200 : 15; //43200s = 1 month
+                    var ticket = new FormsAuthenticationTicket(model.EMail, model.RememberMe, timeout);
+                    string encryptticket = FormsAuthentication.Encrypt(ticket);
+                    var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptticket);
+                    cookie.Expires = DateTime.Now.AddMinutes(timeout);
+                    cookie.HttpOnly = true;
+                    Response.Cookies.Add(cookie);
+                    
                     return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewBag.Message = "Cannot login.";
+                    return View(model);
                 }
             }
             return View();
+        }
+
+        [Authorize]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            Session.Abandon();
+
+            return RedirectToAction("Login", "Login");
         }
 
         // GET: Registration
@@ -48,8 +70,22 @@ namespace GradProjUi.Controllers
         {
             if(ModelState.IsValid)
             {
-                DBBridge.CreateUser(model.UserId, model.FirstName, model.LastName, model.MailAddress, model.Password);
-                ViewBag.Message = "Registration successful.";
+                var data = DBBridge.SearchUser(model.MailAddress);
+                if(data.Count == 0)
+                {
+                    DBBridge.CreateUser(model.UserId, model.FirstName, model.LastName, model.MailAddress, model.Password);
+                    ViewBag.Message = "Your account is created successfully.";
+                }
+                else
+                {
+                    ModelState.AddModelError("EmailExist", "The typed e-mail is exist.");
+                    return View(model);
+                }
+            }
+            else
+            {
+                ViewBag.Message = "Invalid input(s).";
+                return View(model);
             }
             
             return View();
