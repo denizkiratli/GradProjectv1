@@ -1,6 +1,0 @@
-﻿CREATE TABLE [dbo].[AssignmentData]
-(
-	[AsId] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-	[AsName] [NVARCHAR](50) NOT NULL,
-	[AsDate] DATE NOT NULL DEFAULT GETDATE(),
-)
